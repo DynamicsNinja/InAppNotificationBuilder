@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Fic.XTB.InAppNotificationBuilder</id>
+    <version>1.2021.7.1</version>
+    <title>In-App Notification Builder for XrmToolBox</title>
+    <authors>Ivan Ficko</authors>
+    <owners></owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/DynamicsNinja/InAppNotificationBuilder</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/DynamicsNinja/InAppNotificationBuilder/main/docs/img/ianb-300.png</iconUrl>
+    <description>XrmToolBox tool that allows you to design your in-app notifications, get live preview and source code for creating.</description>
+    <summary>XrmToolBox tool that allows you to design your in-app notifications, get live preview and source code for creating.</summary>
+    <releaseNotes>1.2021.9.1
+- Initial version of the tool released</releaseNotes>
+    <copyright>Copyright 2021 Ivan Ficko</copyright>
+    <tags>XrmToolBox Plugins InAppNotificationBuilder</tags>
+    <dependencies>
+      <dependency id="XrmToolBox" version="1.2018.6.25" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="InAppNotificationBuilder\bin\Release\Plugins\Fic.XTB.InAppNotificationBuilder.dll" target="lib\net472\Plugins\Fic.XTB.InAppNotificationBuilder.dll" />
+  </files>
+</package>

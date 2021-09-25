@@ -1,0 +1,139 @@
+﻿<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <style>
+        body {
+            width: 100%;
+        }
+
+        html {
+            background-color: #F5F5F5;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            width: -webkit-fill-available;
+        }
+        .notification {
+            padding: 10px;
+            border-radius: 3px;
+            box-shadow: rgb(0 0 0 / 10%) 0px 2px 8px;
+            border: 1px solid rgb(237, 235, 233);
+            height: fit-content;
+            background-color: white;
+            width: 306px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            width: -webkit-fill-available;
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            display: flex;
+        }
+
+        .body {
+            display: flex;
+            width: 100%;
+        }
+
+        .time {
+            width: 100%;
+            overflow: hidden;
+            font-family: "Segoe UI", Segoe, "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 10px;
+            color: rgba(51, 51, 51, 0.933);
+            font-weight: 200;
+            text-align: left;
+            line-height: 18px;
+        }
+
+        .close-btn img {
+            height: 13px;
+            width: 13px;
+        }
+
+        .body-container {
+            padding-left: 12px;
+            overflow: hidden;
+            overflow-wrap: break-word;
+        }
+
+        .body-title {
+            font-family: "Segoe UI", Segoe, "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 14px;
+            color: rgb(51, 51, 51);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .body-text {
+            overflow: hidden;
+            font-family: "Segoe UI", Segoe, "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 12px;
+            color: rgb(51, 51, 51);
+            font-weight: 400;
+            text-align: left;
+            overflow-wrap: break-word;
+            max-height: 320px;
+            text-overflow: ellipsis;
+        }
+
+        .body-text p{
+            margin: 0;
+        }
+
+
+        .icon-container img {
+            width: 24px;
+        }
+
+        .body-actions {
+            display: flex;
+            box-sizing: border-box;
+            min-width: 0px;
+            min-height: 30px;
+            flex: 0 1 auto;
+            padding: 0px;
+            margin: 0px;
+            margin-top: 8px;
+        }
+
+        .action {
+            overflow: hidden;
+            font-family: "Segoe UI", Segoe, "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 14px;
+            color: rgb(46, 137, 252);
+            font-weight: 400;
+            text-align: left;
+            line-height: 18.62px;
+            overflow-wrap: break-word;
+            display: inline-block;
+            margin-right: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="notification">
+    <div class="header">
+        <div class="time">5 minutes ago</div>
+        <div class="close-btn">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAARVJREFUKJGFkLFKw1AUhv+TxEoSHRzdWukgROziS7i4XXBIaMlwFZ/ivoNuQhx0UDJaaiefwQqCglfwBVxEWq3JcbGSXm7q2Q7nfIfzfwBAvSTZB0D4p5IkCbvdeM+VUgZFMT3udLZ3RqP7QR1wJMRKseQOCFij2QUX3GfCc2ujfaCUKquAlDKYTsZ9Jn5pttry76U60ASUUuVcDhPUWvse4boKwBY+TdPV8vtrCNADiDeZ8WS+bDUWx/G650AD9PoxnmzleV5U547NkufiioFLgN/CoHFiHp9rzNBaa98mh+qA2YLNKi0C6qySEMIP/eUhMR7Pzi8OAbBNzq/VGxDfOVEUfRL4dBEAAFmWvTteYxelc/sD7cussv0OgEsAAAAASUVORK5CYII=">
+        </div>
+    </div>
+    <div class="body">
+        <div class="icon-container">
+            <img src="NOTIFICATION_ICON">
+        </div>
+        <div class="body-container">
+            <div class="body-title">NOTIFICATION_TITLE</div>
+            <div class="body-text">NOTIFICATION_BODY</div>
+            NOTIFICATION_ACTIONS
+        </div>
+    </div>
+    <div class="footer"></div>
+</div>
+</body>
+</html>
