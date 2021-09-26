@@ -343,6 +343,7 @@
     </Compile>
     <Compile Include="Proxy\AppProxy.cs" />
     <Compile Include="Proxy\CustomPageProxy.cs" />
+    <Compile Include="Proxy\DashboardProxy.cs" />
     <Compile Include="Proxy\EntityMetadataProxy.cs" />
     <Compile Include="Proxy\FormProxy.cs" />
     <Compile Include="Proxy\UserProxy.cs" />

@@ -41,12 +41,18 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             lblRecordId.Visible = selectedType == ActionType.Record;
             cbCustomPage.Visible = selectedType == ActionType.CustomPage;
             lblCustomPage.Visible = selectedType == ActionType.CustomPage;
+            lblDashboard.Visible = selectedType == ActionType.Dashboard;
+            cbDashboard.Visible = selectedType == ActionType.Dashboard;
 
-            if (selectedType == ActionType.CustomPage)
+            switch (selectedType)
             {
-                GetCustomPages();
+                case ActionType.CustomPage:
+                    GetCustomPages();
+                    break;
+                case ActionType.Dashboard:
+                    GetDashboards();
+                    break;
             }
-
 
             tbRecordId.Text = selectedType == ActionType.Record ? Guid.Empty.ToString("D") : "";
         }
@@ -80,6 +86,9 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             _action.CustomPageName = _action.ActionType == ActionType.CustomPage
                 ? ((CustomPageProxy)cbCustomPage.SelectedItem)?.Entity["name"].ToString()
                 : "";
+            _action.DashboardId = _action.ActionType == ActionType.Dashboard
+                ? ((DashboardProxy)cbDashboard.SelectedItem)?.Entity.Id.ToString("D")
+                : "";
             _action.RecordId = tbRecordId.Text;
 
             if (isNew)
@@ -109,6 +118,11 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         }
 
         private void cbCustomPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GenerateUrl();
+        }
+
+        private void cbDashboard_SelectedIndexChanged(object sender, EventArgs e)
         {
             GenerateUrl();
         }
@@ -208,6 +222,49 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                     }
 
                     cbCustomPage.Enabled = true;
+                }
+            });
+        }
+
+        private void GetDashboards()
+        {
+            cbDashboard.Enabled = false;
+
+            _inAppNotificationBuilder.WorkAsync(new WorkAsyncInfo("Loading dashboards...",
+                (eventargs) =>
+                {
+                    var query = new QueryExpression("systemform");
+                    query.ColumnSet.AddColumns("name", "formid");
+                    query.AddOrder("name", OrderType.Ascending);
+                    query.Criteria.AddCondition("type", ConditionOperator.In, 0, 10, 13);
+                    eventargs.Result = _inAppNotificationBuilder.Service.RetrieveMultiple(query);
+                })
+            {
+                PostWorkCallBack = (completedargs) =>
+                {
+                    if (completedargs.Error != null)
+                    {
+                        MessageBox.Show(completedargs.Error.Message);
+                    }
+                    else
+                    {
+                        if (!(completedargs.Result is EntityCollection)) { return; }
+
+                        var result = (EntityCollection)completedargs.Result;
+                        var dashboards = result.Entities.Select(f => new DashboardProxy(f)).OrderBy(f => f.ToString()).ToArray();
+                        cbDashboard.Items.Clear();
+                        cbDashboard.Items.AddRange(dashboards);
+
+                        foreach (DashboardProxy dp in cbDashboard.Items)
+                        {
+                            var dashboardId = ((Guid)dp.Entity["formid"]).ToString("D");
+                            if (dashboardId != _action?.DashboardId) { continue; }
+                            cbDashboard.SelectedItem = dp;
+                            break;
+                        }
+                    }
+
+                    cbDashboard.Enabled = true;
                 }
             });
         }
@@ -337,6 +394,13 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                     var pageName = (string)selectedPage.Entity["name"];
 
                     tbUrl.Text = $@"?pagetype=custom&name={pageName}";
+                    break;
+                case ActionType.Dashboard:
+                    if (cbDashboard.SelectedItem == null) { return; }
+
+                    var selectedDashboard = (DashboardProxy)cbDashboard.SelectedItem;
+
+                    tbUrl.Text = $@"?pagetype=dashboard&id={selectedDashboard.Entity.Id:D}";
                     break;
             }
         }

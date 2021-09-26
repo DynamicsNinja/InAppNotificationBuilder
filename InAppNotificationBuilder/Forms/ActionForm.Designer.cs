@@ -49,6 +49,8 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.cbNavigationTarget = new System.Windows.Forms.ComboBox();
             this.cbCustomPage = new System.Windows.Forms.ComboBox();
             this.lblCustomPage = new System.Windows.Forms.Label();
+            this.cbDashboard = new System.Windows.Forms.ComboBox();
+            this.lblDashboard = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblActionText
@@ -256,11 +258,34 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.lblCustomPage.TabIndex = 18;
             this.lblCustomPage.Text = "Page";
             // 
+            // cbDashboard
+            // 
+            this.cbDashboard.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbDashboard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDashboard.FormattingEnabled = true;
+            this.cbDashboard.Location = new System.Drawing.Point(106, 230);
+            this.cbDashboard.Name = "cbDashboard";
+            this.cbDashboard.Size = new System.Drawing.Size(682, 28);
+            this.cbDashboard.TabIndex = 21;
+            this.cbDashboard.SelectedIndexChanged += new System.EventHandler(this.cbDashboard_SelectedIndexChanged);
+            // 
+            // lblDashboard
+            // 
+            this.lblDashboard.AutoSize = true;
+            this.lblDashboard.Location = new System.Drawing.Point(12, 233);
+            this.lblDashboard.Name = "lblDashboard";
+            this.lblDashboard.Size = new System.Drawing.Size(88, 20);
+            this.lblDashboard.TabIndex = 20;
+            this.lblDashboard.Text = "Dashboard";
+            // 
             // ActionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cbDashboard);
+            this.Controls.Add(this.lblDashboard);
             this.Controls.Add(this.cbCustomPage);
             this.Controls.Add(this.lblCustomPage);
             this.Controls.Add(this.lblNavigationTarget);
@@ -313,5 +338,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         private System.Windows.Forms.ComboBox cbNavigationTarget;
         private System.Windows.Forms.ComboBox cbCustomPage;
         private System.Windows.Forms.Label lblCustomPage;
+        private System.Windows.Forms.ComboBox cbDashboard;
+        private System.Windows.Forms.Label lblDashboard;
     }
 }

@@ -22,6 +22,8 @@ namespace Fic.XTB.InAppNotificationBuilder.Model
         public string CustomPageName { get; set; }
         [Browsable(false)]
         public string NavigationTarget { get; set; }
+        [Browsable(false)]
+        public string DashboardId { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
