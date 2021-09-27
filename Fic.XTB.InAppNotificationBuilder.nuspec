@@ -14,7 +14,10 @@
     <releaseNotes>1.2021.9.1
 - Initial version of the tool released
 1.2021.9.2
-- Added dashboards support for links</releaseNotes>
+- Added dashboards support for links
+1.2021.9.4
+- Added URL validation for links
+- Added Expiry parameter</releaseNotes>
     <copyright>Copyright 2021 Ivan Ficko</copyright>
     <tags>XrmToolBox Plugins InAppNotificationBuilder</tags>
     <dependencies>

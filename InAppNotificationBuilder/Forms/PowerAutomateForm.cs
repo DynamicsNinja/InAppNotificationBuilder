@@ -14,6 +14,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             tbData.Text = req.Data;
             tbIconType.Text = req.Icontype.Name;
             tbOwner.Text = $@"systemusers({req.Ownerid})";
+            tbExpiry.Text = req.TtlInSeconds.ToString();
         }
     }
 }

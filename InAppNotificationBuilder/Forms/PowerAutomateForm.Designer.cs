@@ -40,6 +40,8 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.label4 = new System.Windows.Forms.Label();
             this.tbOwner = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbExpiry = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -116,7 +118,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             // 
             this.tbIconType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbIconType.Location = new System.Drawing.Point(96, 376);
+            this.tbIconType.Location = new System.Drawing.Point(97, 492);
             this.tbIconType.Name = "tbIconType";
             this.tbIconType.ReadOnly = true;
             this.tbIconType.Size = new System.Drawing.Size(692, 26);
@@ -125,7 +127,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 379);
+            this.label4.Location = new System.Drawing.Point(12, 495);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 20);
             this.label4.TabIndex = 8;
@@ -150,11 +152,32 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.label1.TabIndex = 10;
             this.label1.Text = "Owner";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 379);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 20);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Expiry";
+            // 
+            // tbExpiry
+            // 
+            this.tbExpiry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbExpiry.Location = new System.Drawing.Point(96, 376);
+            this.tbExpiry.Name = "tbExpiry";
+            this.tbExpiry.ReadOnly = true;
+            this.tbExpiry.Size = new System.Drawing.Size(692, 26);
+            this.tbExpiry.TabIndex = 13;
+            // 
             // PowerAutomateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 497);
+            this.ClientSize = new System.Drawing.Size(800, 552);
+            this.Controls.Add(this.tbExpiry);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.tbOwner);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbIconType);
@@ -187,5 +210,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbOwner;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbExpiry;
     }
 }

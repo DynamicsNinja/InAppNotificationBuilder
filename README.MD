@@ -24,6 +24,7 @@ Currently it supports 4 types
 - Record
 - List
 - Custom Page
+- Dashboard
 
 ![ianb-2](docs/img/ianb-2.png)
 

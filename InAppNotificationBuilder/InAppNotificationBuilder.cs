@@ -52,6 +52,8 @@ namespace Fic.XTB.InAppNotificationBuilder
             dgvActions.DataSource = NotificationActions;
 
             cbToastType.DataSource = Enum.GetValues(typeof(ToastType));
+            cbExpiresIn.DataSource = Enum.GetValues(typeof(TimeUnit));
+            cbExpiresIn.SelectedIndex = cbExpiresIn.Items.Count - 1;
 
             InitIconDropdown();
 
@@ -138,7 +140,7 @@ namespace Fic.XTB.InAppNotificationBuilder
 
             _testForm.ShowDialog();
         }
-        
+
         private void tsbEnabled_Click(object sender, EventArgs e)
         {
             OpenUpdateSettingsDialog(false);
@@ -511,6 +513,16 @@ namespace Fic.XTB.InAppNotificationBuilder
             return tbBody.Text;
         }
 
+        private int CalculateExpirationTime()
+        {
+            var selectedUnit = (int)cbExpiresIn.SelectedItem;
+            var expiresIn = int.Parse(tbExpiresIn.Text);
+
+            var total = selectedUnit * expiresIn;
+
+            return total;
+        }
+
         public NotificationCreateRequest GenerateNotificationCreateRequest()
         {
             var notificationRequest = new NotificationCreateRequest();
@@ -520,6 +532,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             notificationRequest.Icontype = _notification.Icon;
             notificationRequest.ToastType = (ToastType)cbToastType.SelectedItem;
             notificationRequest.Data = GenerateNotificationDataJson();
+            notificationRequest.TtlInSeconds = CalculateExpirationTime();
 
             return notificationRequest;
         }
@@ -543,6 +556,7 @@ namespace Fic.XTB.InAppNotificationBuilder
                         ["ownerid"] = new EntityReference("systemuser", userId),
                         ["icontype"] = new OptionSetValue(notificationRequest.Icontype.Value),
                         ["toasttype"] = new OptionSetValue((int)notificationRequest.ToastType),
+                        ["ttlinseconds"] = notificationRequest.TtlInSeconds,
                         ["data"] = notificationRequest.Data
                     };
 
@@ -762,6 +776,7 @@ var notificationRecord =
     'ownerid@odata.bind': '/systemusers(' + systemuserid + ')',
     'icontype': {req.Icontype.Value}, // {req.Icontype.Name}
     'toasttype': {(int)req.ToastType}, // {Enum.GetName(typeof(ToastType), req.ToastType)}
+    'ttlinseconds': {req.TtlInSeconds},
     {(req.Data == "" ? "DELETED_LINE" : "'data': JSON.stringify(data)")}
 }}
 Xrm.WebApi.createRecord('appnotification', notificationRecord).
@@ -794,6 +809,7 @@ var notification = new Entity(""appnotification"")
     [""ownerid""] = new EntityReference(""systemuser"", new Guid(""{req.Ownerid}"")),
     [""icontype""] = new OptionSetValue({req.Icontype.Value}), // {req.Icontype.Name}
     [""toasttype""] = new OptionSetValue({(int)req.ToastType}), // {Enum.GetName(typeof(ToastType), req.ToastType)}
+    [""ttlinseconds""] = {req.TtlInSeconds},
     {(req.Data == "" ? "DELETED_LINE" : $@"[""data""] = @""{escapedDataJson}""")}
 }};
 

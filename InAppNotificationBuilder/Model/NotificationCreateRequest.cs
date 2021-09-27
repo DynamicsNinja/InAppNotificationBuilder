@@ -8,5 +8,6 @@
         public NotificationIcon Icontype { get; set; }
         public string Data { get; set; }
         public ToastType ToastType { get; set; }
+        public int TtlInSeconds { get; set; }
     }
 }

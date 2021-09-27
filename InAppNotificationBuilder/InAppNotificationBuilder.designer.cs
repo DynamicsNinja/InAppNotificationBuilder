@@ -49,6 +49,9 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.gbPreview = new System.Windows.Forms.GroupBox();
             this.wbPreview = new System.Windows.Forms.WebBrowser();
             this.gbData = new System.Windows.Forms.GroupBox();
+            this.tbExpiresIn = new System.Windows.Forms.TextBox();
+            this.cbExpiresIn = new System.Windows.Forms.ComboBox();
+            this.lblExpiresIn = new System.Windows.Forms.Label();
             this.btnH1 = new System.Windows.Forms.Button();
             this.cbCustomIcon = new System.Windows.Forms.ComboBox();
             this.lblCustomIcon = new System.Windows.Forms.Label();
@@ -122,7 +125,6 @@ namespace Fic.XTB.InAppNotificationBuilder
             // 
             this.tscbApp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tscbApp.DropDownWidth = 150;
-            this.tscbApp.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tscbApp.Name = "tscbApp";
             this.tscbApp.Size = new System.Drawing.Size(150, 34);
             this.tscbApp.SelectedIndexChanged += new System.EventHandler(this.tscbApp_SelectedIndexChanged);
@@ -235,6 +237,9 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.gbData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbData.Controls.Add(this.tbExpiresIn);
+            this.gbData.Controls.Add(this.cbExpiresIn);
+            this.gbData.Controls.Add(this.lblExpiresIn);
             this.gbData.Controls.Add(this.btnH1);
             this.gbData.Controls.Add(this.cbCustomIcon);
             this.gbData.Controls.Add(this.lblCustomIcon);
@@ -258,6 +263,34 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.gbData.TabStop = false;
             this.gbData.Text = "Data";
             // 
+            // tbExpiresIn
+            // 
+            this.tbExpiresIn.Location = new System.Drawing.Point(99, 393);
+            this.tbExpiresIn.Name = "tbExpiresIn";
+            this.tbExpiresIn.Size = new System.Drawing.Size(303, 26);
+            this.tbExpiresIn.TabIndex = 29;
+            this.tbExpiresIn.Text = "2";
+            // 
+            // cbExpiresIn
+            // 
+            this.cbExpiresIn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbExpiresIn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExpiresIn.FormattingEnabled = true;
+            this.cbExpiresIn.Location = new System.Drawing.Point(408, 393);
+            this.cbExpiresIn.Name = "cbExpiresIn";
+            this.cbExpiresIn.Size = new System.Drawing.Size(206, 28);
+            this.cbExpiresIn.TabIndex = 28;
+            // 
+            // lblExpiresIn
+            // 
+            this.lblExpiresIn.AutoSize = true;
+            this.lblExpiresIn.Location = new System.Drawing.Point(6, 396);
+            this.lblExpiresIn.Name = "lblExpiresIn";
+            this.lblExpiresIn.Size = new System.Drawing.Size(79, 20);
+            this.lblExpiresIn.TabIndex = 27;
+            this.lblExpiresIn.Text = "Expires In";
+            // 
             // btnH1
             // 
             this.btnH1.Image = ((System.Drawing.Image)(resources.GetObject("btnH1.Image")));
@@ -274,7 +307,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCustomIcon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCustomIcon.FormattingEnabled = true;
-            this.cbCustomIcon.Location = new System.Drawing.Point(99, 448);
+            this.cbCustomIcon.Location = new System.Drawing.Point(99, 504);
             this.cbCustomIcon.Name = "cbCustomIcon";
             this.cbCustomIcon.Size = new System.Drawing.Size(515, 28);
             this.cbCustomIcon.TabIndex = 25;
@@ -284,7 +317,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             // lblCustomIcon
             // 
             this.lblCustomIcon.AutoSize = true;
-            this.lblCustomIcon.Location = new System.Drawing.Point(6, 451);
+            this.lblCustomIcon.Location = new System.Drawing.Point(8, 507);
             this.lblCustomIcon.Name = "lblCustomIcon";
             this.lblCustomIcon.Size = new System.Drawing.Size(54, 20);
             this.lblCustomIcon.TabIndex = 24;
@@ -371,9 +404,9 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.gbActions.Controls.Add(this.btnEditAction);
             this.gbActions.Controls.Add(this.btnAddAction);
             this.gbActions.Controls.Add(this.dgvActions);
-            this.gbActions.Location = new System.Drawing.Point(6, 513);
+            this.gbActions.Location = new System.Drawing.Point(6, 547);
             this.gbActions.Name = "gbActions";
-            this.gbActions.Size = new System.Drawing.Size(608, 271);
+            this.gbActions.Size = new System.Drawing.Size(608, 237);
             this.gbActions.TabIndex = 16;
             this.gbActions.TabStop = false;
             this.gbActions.Text = "Actions";
@@ -434,7 +467,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.dgvActions.RowHeadersWidth = 62;
             this.dgvActions.RowTemplate.Height = 28;
             this.dgvActions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvActions.Size = new System.Drawing.Size(596, 179);
+            this.dgvActions.Size = new System.Drawing.Size(596, 145);
             this.dgvActions.TabIndex = 0;
             this.dgvActions.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvActions_CellContentDoubleClick);
             // 
@@ -444,7 +477,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbIcon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbIcon.FormattingEnabled = true;
-            this.cbIcon.Location = new System.Drawing.Point(99, 393);
+            this.cbIcon.Location = new System.Drawing.Point(99, 448);
             this.cbIcon.Name = "cbIcon";
             this.cbIcon.Size = new System.Drawing.Size(515, 28);
             this.cbIcon.TabIndex = 13;
@@ -453,7 +486,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 396);
+            this.label3.Location = new System.Drawing.Point(8, 451);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 20);
             this.label3.TabIndex = 12;
@@ -566,5 +599,8 @@ namespace Fic.XTB.InAppNotificationBuilder
         private System.Windows.Forms.ComboBox cbCustomIcon;
         private System.Windows.Forms.Label lblCustomIcon;
         private System.Windows.Forms.Button btnH1;
+        private System.Windows.Forms.TextBox tbExpiresIn;
+        private System.Windows.Forms.ComboBox cbExpiresIn;
+        private System.Windows.Forms.Label lblExpiresIn;
     }
 }

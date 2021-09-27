@@ -327,6 +327,7 @@
     <Compile Include="Model\NotificationCreateRequest.cs" />
     <Compile Include="Model\NotificationData.cs" />
     <Compile Include="Model\NotificationIcon.cs" />
+    <Compile Include="Model\TimeUnit.cs" />
     <Compile Include="Model\ToastType.cs" />
     <Compile Include="PluginDescription.cs" />
     <Compile Include="InAppNotificationBuilder.cs">
