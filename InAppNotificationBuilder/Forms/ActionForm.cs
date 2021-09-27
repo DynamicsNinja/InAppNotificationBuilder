@@ -28,6 +28,8 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
 
         private void cbActionType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            errorProvider.SetError(tbUrl, string.Empty);
+
             var selectedType = (ActionType)cbActionType.SelectedItem;
 
             tbUrl.Enabled = selectedType == ActionType.Url;
@@ -54,6 +56,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                     break;
             }
 
+            tbUrl.Text = "";
             tbRecordId.Text = selectedType == ActionType.Record ? Guid.Empty.ToString("D") : "";
         }
 
@@ -69,6 +72,12 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
 
         private void btnSaveAction_Click(object sender, EventArgs e)
         {
+            tbUrl.CausesValidation = true;
+
+            var isValid = ValidateChildren();
+
+            if (!isValid) { return; }
+
             var isNew = _action == null;
 
             _action = _action ?? new NotificationAction();
@@ -406,5 +415,28 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         }
 
         #endregion
+
+        private void tbUrl_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var selectedType = (ActionType)cbActionType.SelectedItem;
+
+            var url = tbUrl.Text;
+
+            var isValidUrl = selectedType == ActionType.Url
+                ? Uri.TryCreate(url, UriKind.Absolute, out var uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps)
+                : !string.IsNullOrWhiteSpace(url);
+
+            if (!isValidUrl)
+            {
+                errorProvider.SetIconAlignment(tbUrl, ErrorIconAlignment.MiddleLeft);
+                errorProvider.SetIconPadding(tbUrl, 5);
+                errorProvider.SetError(tbUrl, "Please enter valid URL.");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorProvider.SetError(tbUrl, "");
+            }
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblActionText = new System.Windows.Forms.Label();
             this.cbActionType = new System.Windows.Forms.ComboBox();
             this.btnInsertLink = new System.Windows.Forms.Button();
@@ -48,6 +49,8 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.lblCustomPage = new System.Windows.Forms.Label();
             this.lblDashboard = new System.Windows.Forms.Label();
             this.cbDashboard = new System.Windows.Forms.ComboBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // lblActionText
@@ -116,11 +119,13 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             // 
             this.tbUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbUrl.CausesValidation = false;
             this.tbUrl.Enabled = false;
             this.tbUrl.Location = new System.Drawing.Point(106, 125);
             this.tbUrl.Name = "tbUrl";
             this.tbUrl.Size = new System.Drawing.Size(682, 26);
             this.tbUrl.TabIndex = 7;
+            this.tbUrl.Validating += new System.ComponentModel.CancelEventHandler(this.tbUrl_Validating);
             // 
             // lblEntity
             // 
@@ -246,6 +251,10 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.cbDashboard.TabIndex = 23;
             this.cbDashboard.SelectedIndexChanged += new System.EventHandler(this.cbDashboard_SelectedIndexChanged);
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // InsertLinkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -275,6 +284,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.Name = "InsertLinkForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Insert Link";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,5 +311,6 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         private System.Windows.Forms.Label lblCustomPage;
         private System.Windows.Forms.Label lblDashboard;
         private System.Windows.Forms.ComboBox cbDashboard;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

@@ -12,7 +12,9 @@
     <description>XrmToolBox tool that allows you to design your in-app notifications, get live preview and source code for creating.</description>
     <summary>XrmToolBox tool that allows you to design your in-app notifications, get live preview and source code for creating.</summary>
     <releaseNotes>1.2021.9.1
-- Initial version of the tool released</releaseNotes>
+- Initial version of the tool released
+1.2021.9.2
+- Added dashboards support for links</releaseNotes>
     <copyright>Copyright 2021 Ivan Ficko</copyright>
     <tags>XrmToolBox Plugins InAppNotificationBuilder</tags>
     <dependencies>
