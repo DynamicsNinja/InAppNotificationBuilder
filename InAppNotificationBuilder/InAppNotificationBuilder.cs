@@ -287,6 +287,32 @@ namespace Fic.XTB.InAppNotificationBuilder
             tbBody.SelectionStart = start + insertText.Length;
         }
 
+        private void btnUp_Click(object sender, EventArgs e)
+        {
+            var index = dgvActions.CurrentRow?.Index;
+
+            if (index == null || index == 0) { return; }
+
+            SwapRows(NotificationActions, (int)index, (int)index - 1);
+
+            SetSelectedActionRow((int)index - 1);
+
+            RenderNotifcation();
+        }
+
+        private void btnDown_Click(object sender, EventArgs e)
+        {
+            var index = dgvActions.CurrentRow?.Index;
+
+            if (index == null || index == NotificationActions.Count - 1) { return; }
+
+            SwapRows(NotificationActions, (int)index, (int)index + 1);
+
+            SetSelectedActionRow((int)index + 1);
+
+            RenderNotifcation();
+        }
+
         #endregion
 
         #region Methods
@@ -851,6 +877,24 @@ service.Create(notification);".Trim();
             var selectionIndex = tbBody.SelectionStart;
             tbBody.Text = tbBody.Text.Insert(selectionIndex, insertText);
             tbBody.SelectionStart = selectionIndex + insertText.Length;
+        }
+
+        public static void SwapRows<T>(IList<T> list, int indexA, int indexB)
+        {
+            var tmp = list[indexA];
+            list[indexA] = list[indexB];
+            list[indexB] = tmp;
+        }
+
+        private void SetSelectedActionRow(int index)
+        {
+            foreach (DataGridViewRow row in dgvActions.Rows)
+            {
+                if (row.Index == index)
+                {
+                    dgvActions.CurrentCell = dgvActions.Rows[index].Cells[0];
+                }
+            }
         }
 
         #endregion

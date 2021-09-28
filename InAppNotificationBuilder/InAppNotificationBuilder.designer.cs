@@ -73,6 +73,8 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.label2 = new System.Windows.Forms.Label();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnDown = new System.Windows.Forms.Button();
+            this.btnUp = new System.Windows.Forms.Button();
             this.toolStripMenu.SuspendLayout();
             this.gbPreview.SuspendLayout();
             this.gbData.SuspendLayout();
@@ -97,7 +99,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.btnGetCode});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
-            this.toolStripMenu.Size = new System.Drawing.Size(1258, 34);
+            this.toolStripMenu.Size = new System.Drawing.Size(1486, 38);
             this.toolStripMenu.TabIndex = 4;
             this.toolStripMenu.Text = "toolStrip1";
             // 
@@ -106,7 +108,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbClose.Image = ((System.Drawing.Image)(resources.GetObject("tsbClose.Image")));
             this.tsbClose.Name = "tsbClose";
-            this.tsbClose.Size = new System.Drawing.Size(34, 29);
+            this.tsbClose.Size = new System.Drawing.Size(34, 33);
             this.tsbClose.Text = "x";
             this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
             // 
@@ -213,9 +215,9 @@ namespace Fic.XTB.InAppNotificationBuilder
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbPreview.Controls.Add(this.wbPreview);
-            this.gbPreview.Location = new System.Drawing.Point(629, 3);
+            this.gbPreview.Location = new System.Drawing.Point(743, 3);
             this.gbPreview.Name = "gbPreview";
-            this.gbPreview.Size = new System.Drawing.Size(620, 790);
+            this.gbPreview.Size = new System.Drawing.Size(734, 790);
             this.gbPreview.TabIndex = 6;
             this.gbPreview.TabStop = false;
             this.gbPreview.Text = "Preview";
@@ -229,7 +231,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.wbPreview.MinimumSize = new System.Drawing.Size(20, 20);
             this.wbPreview.Name = "wbPreview";
             this.wbPreview.ScrollBarsEnabled = false;
-            this.wbPreview.Size = new System.Drawing.Size(608, 759);
+            this.wbPreview.Size = new System.Drawing.Size(722, 759);
             this.wbPreview.TabIndex = 5;
             // 
             // gbData
@@ -258,7 +260,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.gbData.Controls.Add(this.tbTitle);
             this.gbData.Location = new System.Drawing.Point(3, 3);
             this.gbData.Name = "gbData";
-            this.gbData.Size = new System.Drawing.Size(620, 790);
+            this.gbData.Size = new System.Drawing.Size(734, 790);
             this.gbData.TabIndex = 7;
             this.gbData.TabStop = false;
             this.gbData.Text = "Data";
@@ -279,7 +281,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.cbExpiresIn.FormattingEnabled = true;
             this.cbExpiresIn.Location = new System.Drawing.Point(408, 393);
             this.cbExpiresIn.Name = "cbExpiresIn";
-            this.cbExpiresIn.Size = new System.Drawing.Size(206, 28);
+            this.cbExpiresIn.Size = new System.Drawing.Size(320, 28);
             this.cbExpiresIn.TabIndex = 28;
             // 
             // lblExpiresIn
@@ -309,7 +311,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.cbCustomIcon.FormattingEnabled = true;
             this.cbCustomIcon.Location = new System.Drawing.Point(99, 504);
             this.cbCustomIcon.Name = "cbCustomIcon";
-            this.cbCustomIcon.Size = new System.Drawing.Size(515, 28);
+            this.cbCustomIcon.Size = new System.Drawing.Size(629, 28);
             this.cbCustomIcon.TabIndex = 25;
             this.cbCustomIcon.Visible = false;
             this.cbCustomIcon.SelectedIndexChanged += new System.EventHandler(this.cbCustomIcon_SelectedIndexChanged);
@@ -371,7 +373,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.tbBody.Location = new System.Drawing.Point(99, 144);
             this.tbBody.Multiline = true;
             this.tbBody.Name = "tbBody";
-            this.tbBody.Size = new System.Drawing.Size(515, 170);
+            this.tbBody.Size = new System.Drawing.Size(629, 170);
             this.tbBody.TabIndex = 19;
             this.tbBody.TextChanged += new System.EventHandler(this.tbBody_TextChanged);
             // 
@@ -383,7 +385,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.cbToastType.FormattingEnabled = true;
             this.cbToastType.Location = new System.Drawing.Point(99, 338);
             this.cbToastType.Name = "cbToastType";
-            this.cbToastType.Size = new System.Drawing.Size(515, 28);
+            this.cbToastType.Size = new System.Drawing.Size(629, 28);
             this.cbToastType.TabIndex = 18;
             // 
             // lblToastType
@@ -400,13 +402,15 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.gbActions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbActions.Controls.Add(this.btnUp);
+            this.gbActions.Controls.Add(this.btnDown);
             this.gbActions.Controls.Add(this.btnDeleteAction);
             this.gbActions.Controls.Add(this.btnEditAction);
             this.gbActions.Controls.Add(this.btnAddAction);
             this.gbActions.Controls.Add(this.dgvActions);
             this.gbActions.Location = new System.Drawing.Point(6, 547);
             this.gbActions.Name = "gbActions";
-            this.gbActions.Size = new System.Drawing.Size(608, 237);
+            this.gbActions.Size = new System.Drawing.Size(722, 237);
             this.gbActions.TabIndex = 16;
             this.gbActions.TabStop = false;
             this.gbActions.Text = "Actions";
@@ -467,7 +471,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.dgvActions.RowHeadersWidth = 62;
             this.dgvActions.RowTemplate.Height = 28;
             this.dgvActions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvActions.Size = new System.Drawing.Size(596, 145);
+            this.dgvActions.Size = new System.Drawing.Size(710, 145);
             this.dgvActions.TabIndex = 0;
             this.dgvActions.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvActions_CellContentDoubleClick);
             // 
@@ -479,7 +483,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.cbIcon.FormattingEnabled = true;
             this.cbIcon.Location = new System.Drawing.Point(99, 448);
             this.cbIcon.Name = "cbIcon";
-            this.cbIcon.Size = new System.Drawing.Size(515, 28);
+            this.cbIcon.Size = new System.Drawing.Size(629, 28);
             this.cbIcon.TabIndex = 13;
             this.cbIcon.SelectedIndexChanged += new System.EventHandler(this.cbIcon_SelectedIndexChanged);
             // 
@@ -516,7 +520,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbTitle.Location = new System.Drawing.Point(99, 39);
             this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(515, 26);
+            this.tbTitle.Size = new System.Drawing.Size(629, 26);
             this.tbTitle.TabIndex = 7;
             this.tbTitle.TextChanged += new System.EventHandler(this.tbTitle_TextChanged);
             // 
@@ -534,8 +538,38 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1252, 796);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1480, 796);
             this.tableLayoutPanel1.TabIndex = 7;
+            // 
+            // btnDown
+            // 
+            this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnDown.Image = ((System.Drawing.Image)(resources.GetObject("btnDown.Image")));
+            this.btnDown.Location = new System.Drawing.Point(596, 25);
+            this.btnDown.Name = "btnDown";
+            this.btnDown.Size = new System.Drawing.Size(120, 50);
+            this.btnDown.TabIndex = 4;
+            this.btnDown.Text = "Down";
+            this.btnDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDown.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDown.UseVisualStyleBackColor = true;
+            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
+            // 
+            // btnUp
+            // 
+            this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnUp.Image = ((System.Drawing.Image)(resources.GetObject("btnUp.Image")));
+            this.btnUp.Location = new System.Drawing.Point(470, 25);
+            this.btnUp.Name = "btnUp";
+            this.btnUp.Size = new System.Drawing.Size(120, 50);
+            this.btnUp.TabIndex = 5;
+            this.btnUp.Text = "Up";
+            this.btnUp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnUp.UseVisualStyleBackColor = true;
+            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
             // 
             // InAppNotificationBuilder
             // 
@@ -545,7 +579,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.Controls.Add(this.toolStripMenu);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "InAppNotificationBuilder";
-            this.Size = new System.Drawing.Size(1258, 840);
+            this.Size = new System.Drawing.Size(1486, 840);
             this.Load += new System.EventHandler(this.MyPluginControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
@@ -602,5 +636,7 @@ namespace Fic.XTB.InAppNotificationBuilder
         private System.Windows.Forms.TextBox tbExpiresIn;
         private System.Windows.Forms.ComboBox cbExpiresIn;
         private System.Windows.Forms.Label lblExpiresIn;
+        private System.Windows.Forms.Button btnUp;
+        private System.Windows.Forms.Button btnDown;
     }
 }

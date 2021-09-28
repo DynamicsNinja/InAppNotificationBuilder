@@ -17,7 +17,9 @@
 - Added dashboards support for links
 1.2021.9.4
 - Added URL validation for links
-- Added Expiry parameter</releaseNotes>
+- Added Expiry parameter
+1.2021.9.5
+- Added buttons for reordering actions</releaseNotes>
     <copyright>Copyright 2021 Ivan Ficko</copyright>
     <tags>XrmToolBox Plugins InAppNotificationBuilder</tags>
     <dependencies>
