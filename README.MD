@@ -1,5 +1,7 @@
 # In-App Notification Builder for [XrmToolBox](http://www.xrmtoolbox.com)
 
+![Nuget](https://img.shields.io/nuget/dt/Fic.XTB.InAppNotificationBuilder) ![Nuget](https://img.shields.io/nuget/v/Fic.XTB.InAppNotificationBuilder)
+
 XrmToolBox tool that allows you to design your in-app notifications, get live preview and source code for creating.
 
 ## Preview
