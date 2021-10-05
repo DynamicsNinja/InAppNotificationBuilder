@@ -63,6 +63,8 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.cbToastType = new System.Windows.Forms.ComboBox();
             this.lblToastType = new System.Windows.Forms.Label();
             this.gbActions = new System.Windows.Forms.GroupBox();
+            this.btnUp = new System.Windows.Forms.Button();
+            this.btnDown = new System.Windows.Forms.Button();
             this.btnDeleteAction = new System.Windows.Forms.Button();
             this.btnEditAction = new System.Windows.Forms.Button();
             this.btnAddAction = new System.Windows.Forms.Button();
@@ -73,8 +75,6 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.label2 = new System.Windows.Forms.Label();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnDown = new System.Windows.Forms.Button();
-            this.btnUp = new System.Windows.Forms.Button();
             this.toolStripMenu.SuspendLayout();
             this.gbPreview.SuspendLayout();
             this.gbData.SuspendLayout();
@@ -115,12 +115,12 @@ namespace Fic.XTB.InAppNotificationBuilder
             // tssSeparator1
             // 
             this.tssSeparator1.Name = "tssSeparator1";
-            this.tssSeparator1.Size = new System.Drawing.Size(6, 34);
+            this.tssSeparator1.Size = new System.Drawing.Size(6, 38);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(46, 29);
+            this.toolStripLabel1.Size = new System.Drawing.Size(46, 33);
             this.toolStripLabel1.Text = "App";
             // 
             // tscbApp
@@ -128,13 +128,13 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.tscbApp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tscbApp.DropDownWidth = 150;
             this.tscbApp.Name = "tscbApp";
-            this.tscbApp.Size = new System.Drawing.Size(150, 34);
+            this.tscbApp.Size = new System.Drawing.Size(150, 38);
             this.tscbApp.SelectedIndexChanged += new System.EventHandler(this.tscbApp_SelectedIndexChanged);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(165, 29);
+            this.toolStripLabel2.Size = new System.Drawing.Size(165, 33);
             this.toolStripLabel2.Text = "Notifications Status";
             // 
             // tsbEnabled
@@ -161,14 +161,14 @@ namespace Fic.XTB.InAppNotificationBuilder
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 34);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
             // 
             // tsbSendTest
             // 
             this.tsbSendTest.Image = ((System.Drawing.Image)(resources.GetObject("tsbSendTest.Image")));
             this.tsbSendTest.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSendTest.Name = "tsbSendTest";
-            this.tsbSendTest.Size = new System.Drawing.Size(70, 29);
+            this.tsbSendTest.Size = new System.Drawing.Size(70, 33);
             this.tsbSendTest.Text = "Test";
             this.tsbSendTest.Click += new System.EventHandler(this.tsbSendTest_Click);
             // 
@@ -181,7 +181,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.btnGetCode.Image = ((System.Drawing.Image)(resources.GetObject("btnGetCode.Image")));
             this.btnGetCode.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnGetCode.Name = "btnGetCode";
-            this.btnGetCode.Size = new System.Drawing.Size(131, 29);
+            this.btnGetCode.Size = new System.Drawing.Size(131, 33);
             this.btnGetCode.Text = "Get Code";
             this.btnGetCode.ButtonClick += new System.EventHandler(this.btnGetCode_ButtonClick);
             // 
@@ -415,6 +415,36 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.gbActions.TabStop = false;
             this.gbActions.Text = "Actions";
             // 
+            // btnUp
+            // 
+            this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnUp.Image = ((System.Drawing.Image)(resources.GetObject("btnUp.Image")));
+            this.btnUp.Location = new System.Drawing.Point(470, 25);
+            this.btnUp.Name = "btnUp";
+            this.btnUp.Size = new System.Drawing.Size(120, 50);
+            this.btnUp.TabIndex = 5;
+            this.btnUp.Text = "Up";
+            this.btnUp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnUp.UseVisualStyleBackColor = true;
+            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
+            // 
+            // btnDown
+            // 
+            this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnDown.Image = ((System.Drawing.Image)(resources.GetObject("btnDown.Image")));
+            this.btnDown.Location = new System.Drawing.Point(596, 25);
+            this.btnDown.Name = "btnDown";
+            this.btnDown.Size = new System.Drawing.Size(120, 50);
+            this.btnDown.TabIndex = 4;
+            this.btnDown.Text = "Down";
+            this.btnDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDown.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDown.UseVisualStyleBackColor = true;
+            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
+            // 
             // btnDeleteAction
             // 
             this.btnDeleteAction.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteAction.Image")));
@@ -540,36 +570,6 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1480, 796);
             this.tableLayoutPanel1.TabIndex = 7;
-            // 
-            // btnDown
-            // 
-            this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnDown.Image = ((System.Drawing.Image)(resources.GetObject("btnDown.Image")));
-            this.btnDown.Location = new System.Drawing.Point(596, 25);
-            this.btnDown.Name = "btnDown";
-            this.btnDown.Size = new System.Drawing.Size(120, 50);
-            this.btnDown.TabIndex = 4;
-            this.btnDown.Text = "Down";
-            this.btnDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnDown.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnDown.UseVisualStyleBackColor = true;
-            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
-            // 
-            // btnUp
-            // 
-            this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnUp.Image = ((System.Drawing.Image)(resources.GetObject("btnUp.Image")));
-            this.btnUp.Location = new System.Drawing.Point(470, 25);
-            this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(120, 50);
-            this.btnUp.TabIndex = 5;
-            this.btnUp.Text = "Up";
-            this.btnUp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnUp.UseVisualStyleBackColor = true;
-            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
             // 
             // InAppNotificationBuilder
             // 

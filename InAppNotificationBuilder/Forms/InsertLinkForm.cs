@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Fic.XTB.InAppNotificationBuilder.Model;
@@ -42,6 +43,10 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             lblCustomPage.Visible = selectedType == ActionType.CustomPage;
             lblDashboard.Visible = selectedType == ActionType.Dashboard;
             cbDashboard.Visible = selectedType == ActionType.Dashboard;
+            lblWebresource.Visible = selectedType == ActionType.Webresource;
+            cbWebresource.Visible = selectedType == ActionType.Webresource;
+            lblDataParams.Visible = selectedType == ActionType.Webresource;
+            dgvDataParams.Visible = selectedType == ActionType.Webresource;
 
             switch (selectedType)
             {
@@ -50,6 +55,9 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                     break;
                 case ActionType.Dashboard:
                     GetDashboards();
+                    break;
+                case ActionType.Webresource:
+                    GetHtmlWebresources();
                     break;
             }
 
@@ -64,6 +72,11 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             GetForms(selectedEntity.Entity.LogicalName);
             GetViews(selectedEntity.Entity.LogicalName);
 
+            GenerateUrl();
+        }
+
+        private void cbWebresource_SelectedIndexChanged(object sender, EventArgs e)
+        {
             GenerateUrl();
         }
 
@@ -108,6 +121,34 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             Close();
         }
 
+        private void tbUrl_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var selectedType = (ActionType)cbActionType.SelectedItem;
+
+            var url = tbUrl.Text;
+
+            var isValidUrl = selectedType == ActionType.Url
+                ? Uri.TryCreate(url, UriKind.Absolute, out var uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps)
+                : !string.IsNullOrWhiteSpace(url);
+
+            if (!isValidUrl)
+            {
+                errorProvider.SetIconAlignment(tbUrl, ErrorIconAlignment.MiddleLeft);
+                errorProvider.SetIconPadding(tbUrl, 5);
+                errorProvider.SetError(tbUrl, "Please enter valid URL.");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorProvider.SetError(tbUrl, "");
+            }
+        }
+
+        private void dgvDataParams_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            GenerateUrl();
+        }
+
         #endregion
 
         #region Methods
@@ -116,6 +157,41 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         {
             cbActionType.DataSource = Enum.GetValues(typeof(ActionType));
             cbEntity.Items.AddRange(_inAppNotificationBuilder.Entities);
+        }
+
+        private void GetHtmlWebresources()
+        {
+            cbWebresource.Enabled = false;
+
+            _inAppNotificationBuilder.WorkAsync(new WorkAsyncInfo("Loading webresources...",
+                (eventargs) =>
+                {
+                    var query = new QueryExpression("webresource");
+                    query.ColumnSet.AddColumns("name");
+                    query.AddOrder("name", OrderType.Ascending);
+                    query.Criteria.AddCondition("webresourcetype", ConditionOperator.Equal, 1);
+                    eventargs.Result = _inAppNotificationBuilder.Service.RetrieveMultiple(query);
+                })
+            {
+                PostWorkCallBack = (completedargs) =>
+                {
+                    if (completedargs.Error != null)
+                    {
+                        MessageBox.Show(completedargs.Error.Message);
+                    }
+                    else
+                    {
+                        if (!(completedargs.Result is EntityCollection)) { return; }
+
+                        var result = (EntityCollection)completedargs.Result;
+                        var webresources = result.Entities.Select(f => new WebresourceProxy(f)).OrderBy(f => f.ToString()).ToArray();
+                        cbWebresource.Items.Clear();
+                        cbWebresource.Items.AddRange(webresources);
+                    }
+
+                    cbWebresource.Enabled = true;
+                }
+            });
         }
 
         private void GetCustomPages()
@@ -305,32 +381,33 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
 
                     tbUrl.Text = $@"?pagetype=dashboard&id={selectedDashboard.Entity.Id:D}";
                     break;
+                case ActionType.Webresource:
+                    if (cbWebresource.SelectedItem == null) { return; }
+
+                    var selectedWebresource = (WebresourceProxy)cbWebresource.SelectedItem;
+                    var webresourceName = (string)selectedWebresource.Entity["name"];
+
+                    var dataParamsList = new List<string>();
+
+                    foreach (DataGridViewRow row in dgvDataParams.Rows)
+                    {
+                        var key = row.Cells["Key"].Value;
+                        var value = row.Cells["Value"].Value;
+
+                        if (key == null && value == null) { continue; }
+
+                        dataParamsList.Add($"{key}={value}");
+                    }
+
+                    var dataParams = dataParamsList.Count != 0
+                        ? $"&data={string.Join("&", dataParamsList)}"
+                        : string.Empty;
+
+                    tbUrl.Text = $@"?pagetype=webresource&webresourceName={webresourceName}{dataParams}";
+                    break;
             }
         }
 
         #endregion
-
-        private void tbUrl_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            var selectedType = (ActionType)cbActionType.SelectedItem;
-
-            var url = tbUrl.Text;
-
-            var isValidUrl = selectedType == ActionType.Url
-                ? Uri.TryCreate(url, UriKind.Absolute, out var uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps)
-                : !string.IsNullOrWhiteSpace(url);
-
-            if (!isValidUrl)
-            {
-                errorProvider.SetIconAlignment(tbUrl, ErrorIconAlignment.MiddleLeft);
-                errorProvider.SetIconPadding(tbUrl, 5);
-                errorProvider.SetError(tbUrl, "Please enter valid URL.");
-                e.Cancel = true;
-            }
-            else
-            {
-                errorProvider.SetError(tbUrl, "");
-            }
-        }
     }
 }

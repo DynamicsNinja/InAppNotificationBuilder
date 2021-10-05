@@ -6,6 +6,7 @@
         Record = 2,
         List = 3,
         CustomPage = 4,
-        Dashboard = 5
+        Dashboard = 5,
+        Webresource = 6
     }
 }

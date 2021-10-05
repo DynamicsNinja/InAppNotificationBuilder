@@ -50,7 +50,14 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.lblDashboard = new System.Windows.Forms.Label();
             this.cbDashboard = new System.Windows.Forms.ComboBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lblWebresource = new System.Windows.Forms.Label();
+            this.cbWebresource = new System.Windows.Forms.ComboBox();
+            this.dgvDataParams = new System.Windows.Forms.DataGridView();
+            this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblDataParams = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDataParams)).BeginInit();
             this.SuspendLayout();
             // 
             // lblActionText
@@ -80,7 +87,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             // 
             // btnInsertLink
             // 
-            this.btnInsertLink.Location = new System.Drawing.Point(363, 338);
+            this.btnInsertLink.Location = new System.Drawing.Point(355, 436);
             this.btnInsertLink.Name = "btnInsertLink";
             this.btnInsertLink.Size = new System.Drawing.Size(99, 48);
             this.btnInsertLink.TabIndex = 3;
@@ -255,11 +262,72 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // lblWebresource
+            // 
+            this.lblWebresource.AutoSize = true;
+            this.lblWebresource.Location = new System.Drawing.Point(12, 177);
+            this.lblWebresource.Name = "lblWebresource";
+            this.lblWebresource.Size = new System.Drawing.Size(52, 20);
+            this.lblWebresource.TabIndex = 24;
+            this.lblWebresource.Text = "HTML";
+            // 
+            // cbWebresource
+            // 
+            this.cbWebresource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbWebresource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbWebresource.FormattingEnabled = true;
+            this.cbWebresource.Location = new System.Drawing.Point(106, 177);
+            this.cbWebresource.Name = "cbWebresource";
+            this.cbWebresource.Size = new System.Drawing.Size(682, 28);
+            this.cbWebresource.TabIndex = 25;
+            this.cbWebresource.SelectedIndexChanged += new System.EventHandler(this.cbWebresource_SelectedIndexChanged);
+            // 
+            // dgvDataParams
+            // 
+            this.dgvDataParams.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDataParams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDataParams.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Key,
+            this.Value});
+            this.dgvDataParams.Location = new System.Drawing.Point(106, 229);
+            this.dgvDataParams.Name = "dgvDataParams";
+            this.dgvDataParams.RowHeadersWidth = 62;
+            this.dgvDataParams.RowTemplate.Height = 28;
+            this.dgvDataParams.Size = new System.Drawing.Size(682, 157);
+            this.dgvDataParams.TabIndex = 26;
+            this.dgvDataParams.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDataParams_CellEndEdit);
+            // 
+            // Key
+            // 
+            this.Key.HeaderText = "Key";
+            this.Key.MinimumWidth = 8;
+            this.Key.Name = "Key";
+            // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.MinimumWidth = 8;
+            this.Value.Name = "Value";
+            // 
+            // lblDataParams
+            // 
+            this.lblDataParams.AutoSize = true;
+            this.lblDataParams.Location = new System.Drawing.Point(12, 232);
+            this.lblDataParams.Name = "lblDataParams";
+            this.lblDataParams.Size = new System.Drawing.Size(44, 20);
+            this.lblDataParams.TabIndex = 27;
+            this.lblDataParams.Text = "Data";
+            // 
             // InsertLinkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 411);
+            this.ClientSize = new System.Drawing.Size(800, 517);
+            this.Controls.Add(this.lblDataParams);
+            this.Controls.Add(this.dgvDataParams);
+            this.Controls.Add(this.lblWebresource);
+            this.Controls.Add(this.cbWebresource);
             this.Controls.Add(this.lblDashboard);
             this.Controls.Add(this.cbDashboard);
             this.Controls.Add(this.lblCustomPage);
@@ -285,6 +353,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Insert Link";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDataParams)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,5 +381,11 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         private System.Windows.Forms.Label lblDashboard;
         private System.Windows.Forms.ComboBox cbDashboard;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Label lblWebresource;
+        private System.Windows.Forms.ComboBox cbWebresource;
+        private System.Windows.Forms.DataGridView dgvDataParams;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Key;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
+        private System.Windows.Forms.Label lblDataParams;
     }
 }

@@ -45,6 +45,10 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             lblCustomPage.Visible = selectedType == ActionType.CustomPage;
             lblDashboard.Visible = selectedType == ActionType.Dashboard;
             cbDashboard.Visible = selectedType == ActionType.Dashboard;
+            lblWebresource.Visible = selectedType == ActionType.Webresource;
+            cbWebresource.Visible = selectedType == ActionType.Webresource;
+            lblDataParams.Visible = selectedType == ActionType.Webresource;
+            dgvDataParams.Visible = selectedType == ActionType.Webresource;
 
             switch (selectedType)
             {
@@ -53,6 +57,9 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                     break;
                 case ActionType.Dashboard:
                     GetDashboards();
+                    break;
+                case ActionType.Webresource:
+                    GetHtmlWebresources();
                     break;
             }
 
@@ -98,7 +105,22 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             _action.DashboardId = _action.ActionType == ActionType.Dashboard
                 ? ((DashboardProxy)cbDashboard.SelectedItem)?.Entity.Id.ToString("D")
                 : "";
+            _action.WebresourceName = _action.ActionType == ActionType.Webresource
+                ? ((WebresourceProxy) cbWebresource.SelectedItem)?.Entity["name"].ToString()
+                : "";
             _action.RecordId = tbRecordId.Text;
+
+            _action.WebresourceParams.Clear();
+
+            foreach (DataGridViewRow row in dgvDataParams.Rows)
+            {
+                var key = row.Cells["Key"].Value?.ToString();
+                var value = row.Cells["Value"].Value?.ToString();
+
+                if (key == null && value == null) { continue; }
+
+                _action.WebresourceParams.Add(key, value);
+            }
 
             if (isNew)
             {
@@ -110,6 +132,10 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             Close();
         }
 
+        private void cbWebresource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GenerateUrl();
+        }
 
         private void cbView_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -139,6 +165,29 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void tbUrl_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var selectedType = (ActionType)cbActionType.SelectedItem;
+
+            var url = tbUrl.Text;
+
+            var isValidUrl = selectedType == ActionType.Url
+                ? Uri.TryCreate(url, UriKind.Absolute, out var uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps)
+                : !string.IsNullOrWhiteSpace(url);
+
+            if (!isValidUrl)
+            {
+                errorProvider.SetIconAlignment(tbUrl, ErrorIconAlignment.MiddleLeft);
+                errorProvider.SetIconPadding(tbUrl, 5);
+                errorProvider.SetError(tbUrl, "Please enter valid URL.");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorProvider.SetError(tbUrl, "");
+            }
         }
 
         #endregion
@@ -173,6 +222,13 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                 if (emp.Entity.LogicalName != _action.EntityName) { continue; }
                 cbEntity.SelectedItem = emp;
                 break;
+            }
+
+            foreach (var key in _action.WebresourceParams.Keys)
+            {
+                var index = dgvDataParams.Rows.Add();
+                dgvDataParams.Rows[index].Cells["Key"].Value = key;
+                dgvDataParams.Rows[index].Cells["Value"].Value = _action.WebresourceParams[key];
             }
 
             tbRecordId.Text = _action.RecordId;
@@ -274,6 +330,49 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                     }
 
                     cbDashboard.Enabled = true;
+                }
+            });
+        }
+
+        private void GetHtmlWebresources()
+        {
+            cbWebresource.Enabled = false;
+
+            _inAppNotificationBuilder.WorkAsync(new WorkAsyncInfo("Loading webresources...",
+                (eventargs) =>
+                {
+                    var query = new QueryExpression("webresource");
+                    query.ColumnSet.AddColumns("name");
+                    query.AddOrder("name", OrderType.Ascending);
+                    query.Criteria.AddCondition("webresourcetype", ConditionOperator.Equal, 1);
+                    eventargs.Result = _inAppNotificationBuilder.Service.RetrieveMultiple(query);
+                })
+            {
+                PostWorkCallBack = (completedargs) =>
+                {
+                    if (completedargs.Error != null)
+                    {
+                        MessageBox.Show(completedargs.Error.Message);
+                    }
+                    else
+                    {
+                        if (!(completedargs.Result is EntityCollection)) { return; }
+
+                        var result = (EntityCollection)completedargs.Result;
+                        var webresources = result.Entities.Select(f => new WebresourceProxy(f)).OrderBy(f => f.ToString()).ToArray();
+                        cbWebresource.Items.Clear();
+                        cbWebresource.Items.AddRange(webresources);
+
+                        foreach (WebresourceProxy wrp in cbWebresource.Items)
+                        {
+                            var webresourceName = (string)wrp.Entity["name"];
+                            if (webresourceName != _action?.WebresourceName) { continue; }
+                            cbWebresource.SelectedItem = wrp;
+                            break;
+                        }
+                    }
+
+                    cbWebresource.Enabled = true;
                 }
             });
         }
@@ -411,32 +510,38 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
 
                     tbUrl.Text = $@"?pagetype=dashboard&id={selectedDashboard.Entity.Id:D}";
                     break;
+                case ActionType.Webresource:
+                    if (cbWebresource.SelectedItem == null) { return; }
+
+                    var selectedWebresource = (WebresourceProxy)cbWebresource.SelectedItem;
+                    var webresourceName = (string)selectedWebresource.Entity["name"];
+
+                    var dataParamsList = new List<string>();
+
+                    foreach (DataGridViewRow row in dgvDataParams.Rows)
+                    {
+                        var key = row.Cells["Key"].Value;
+                        var value = row.Cells["Value"].Value;
+
+                        if (key == null && value == null) { continue; }
+
+                        dataParamsList.Add($"{key}={value}");
+                    }
+
+                    var dataParams = dataParamsList.Count != 0
+                        ? $"&data={string.Join("&", dataParamsList)}"
+                        : string.Empty;
+
+                    tbUrl.Text = $@"?pagetype=webresource&webresourceName={webresourceName}{dataParams}";
+                    break;
             }
         }
 
         #endregion
 
-        private void tbUrl_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        private void dgvDataParams_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            var selectedType = (ActionType)cbActionType.SelectedItem;
-
-            var url = tbUrl.Text;
-
-            var isValidUrl = selectedType == ActionType.Url
-                ? Uri.TryCreate(url, UriKind.Absolute, out var uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps)
-                : !string.IsNullOrWhiteSpace(url);
-
-            if (!isValidUrl)
-            {
-                errorProvider.SetIconAlignment(tbUrl, ErrorIconAlignment.MiddleLeft);
-                errorProvider.SetIconPadding(tbUrl, 5);
-                errorProvider.SetError(tbUrl, "Please enter valid URL.");
-                e.Cancel = true;
-            }
-            else
-            {
-                errorProvider.SetError(tbUrl, "");
-            }
+            GenerateUrl();
         }
     }
 }
