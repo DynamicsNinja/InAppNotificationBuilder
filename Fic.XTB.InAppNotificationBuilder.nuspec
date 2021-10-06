@@ -19,7 +19,10 @@
 - Added URL validation for links
 - Added Expiry parameter
 1.2021.9.5
-- Added buttons for reordering actions</releaseNotes>
+- Added buttons for reordering actions
+1.2021.10.3
+- Added HTML webresource links
+- Fixed empty link text issue</releaseNotes>
     <copyright>Copyright 2021 Ivan Ficko</copyright>
     <tags>XrmToolBox Plugins InAppNotificationBuilder</tags>
     <dependencies>

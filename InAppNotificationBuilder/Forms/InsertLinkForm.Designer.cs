@@ -65,9 +65,9 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.lblActionText.AutoSize = true;
             this.lblActionText.Location = new System.Drawing.Point(12, 29);
             this.lblActionText.Name = "lblActionText";
-            this.lblActionText.Size = new System.Drawing.Size(88, 20);
+            this.lblActionText.Size = new System.Drawing.Size(39, 20);
             this.lblActionText.TabIndex = 0;
-            this.lblActionText.Text = "Action Text";
+            this.lblActionText.Text = "Text";
             // 
             // cbActionType
             // 
@@ -112,6 +112,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.tbActionText.Name = "tbActionText";
             this.tbActionText.Size = new System.Drawing.Size(682, 26);
             this.tbActionText.TabIndex = 5;
+            this.tbActionText.Validating += new System.ComponentModel.CancelEventHandler(this.tbActionText_Validating);
             // 
             // lblUrl
             // 

@@ -80,6 +80,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         private void btnSaveAction_Click(object sender, EventArgs e)
         {
             tbUrl.CausesValidation = true;
+            tbActionText.CausesValidation = true;
 
             var isValid = ValidateChildren();
 
@@ -188,6 +189,28 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             {
                 errorProvider.SetError(tbUrl, "");
             }
+        }
+
+        private void tbActionText_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var text = tbActionText.Text.Trim();
+
+            if (text == string.Empty)
+            {
+                errorProvider.SetIconAlignment(tbActionText, ErrorIconAlignment.MiddleLeft);
+                errorProvider.SetIconPadding(tbActionText, 5);
+                errorProvider.SetError(tbActionText, "Action text should not be empty.");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorProvider.SetError(tbActionText, "");
+            }
+        }
+
+        private void dgvDataParams_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            GenerateUrl();
         }
 
         #endregion
@@ -538,10 +561,5 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         }
 
         #endregion
-
-        private void dgvDataParams_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            GenerateUrl();
-        }
     }
 }

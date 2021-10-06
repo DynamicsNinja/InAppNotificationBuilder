@@ -20,13 +20,14 @@ Notifications are still in preview so you need to enable them first and that is 
 
 You are able to create, update and delete actions via simple interface that will change depending on the type.
 
-Currently it supports 4 types
+Currently it supports 6 types
 
 - URL
 - Record
 - List
 - Custom Page
 - Dashboard
+- HTML Webresources
 
 ![ianb-2](docs/img/ianb-2.png)
 
