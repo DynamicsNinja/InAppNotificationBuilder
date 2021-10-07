@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Fic.XTB.InAppNotificationBuilder.Model;
 using Fic.XTB.InAppNotificationBuilder.Proxy;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using XrmToolBox.Extensibility;
@@ -209,6 +210,11 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         }
 
         private void dgvDataParams_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            GenerateUrl();
+        }
+
+        private void cbNavigationTarget_SelectedIndexChanged(object sender, EventArgs e)
         {
             GenerateUrl();
         }
@@ -490,6 +496,9 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
         private void GenerateUrl()
         {
             var selectedType = (ActionType)cbActionType.SelectedItem;
+            var navigationTarget = (NavigationTarget)cbNavigationTarget.SelectedItem;
+
+            var baseUrl = navigationTarget.Value == "newWindow" ? _inAppNotificationBuilder.appBaseUrl : "";
 
             EntityMetadataProxy selectedEntity;
             switch (selectedType)
@@ -504,7 +513,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                     var selectedForm = (FormProxy)cbForm.SelectedItem;
                     var recordId = tbRecordId.Text == "" ? Guid.Empty.ToString("D") : tbRecordId.Text;
 
-                    tbUrl.Text = $@"?pagetype=entityrecord&etn={selectedEntity.Entity.LogicalName}&id={recordId}&formid={selectedForm.Entity.Id:D}";
+                    tbUrl.Text = $@"{baseUrl}?pagetype=entityrecord&etn={selectedEntity.Entity.LogicalName}&id={recordId}&formid={selectedForm.Entity.Id:D}";
                     break;
                 case ActionType.List:
                     if (cbEntity.SelectedItem == null) { return; }
@@ -516,7 +525,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
 
                     var selectedView = (ViewProxy)cbView.SelectedItem;
 
-                    tbUrl.Text = $@"?pagetype=entitylist&etn={selectedEntity.Entity.LogicalName}&viewid={selectedView.Entity.Id:D}";
+                    tbUrl.Text = $@"{baseUrl}?pagetype=entitylist&etn={selectedEntity.Entity.LogicalName}&viewid={selectedView.Entity.Id:D}";
                     break;
                 case ActionType.CustomPage:
                     if (cbCustomPage.SelectedItem == null) { return; }
@@ -524,14 +533,14 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                     var selectedPage = (CustomPageProxy)cbCustomPage.SelectedItem;
                     var pageName = (string)selectedPage.Entity["name"];
 
-                    tbUrl.Text = $@"?pagetype=custom&name={pageName}";
+                    tbUrl.Text = $@"{baseUrl}?pagetype=custom&name={pageName}";
                     break;
                 case ActionType.Dashboard:
                     if (cbDashboard.SelectedItem == null) { return; }
 
                     var selectedDashboard = (DashboardProxy)cbDashboard.SelectedItem;
 
-                    tbUrl.Text = $@"?pagetype=dashboard&id={selectedDashboard.Entity.Id:D}";
+                    tbUrl.Text = $@"{baseUrl}?pagetype=dashboard&id={selectedDashboard.Entity.Id:D}";
                     break;
                 case ActionType.Webresource:
                     if (cbWebresource.SelectedItem == null) { return; }
@@ -555,7 +564,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
                         ? $"&data={string.Join("&", dataParamsList)}"
                         : string.Empty;
 
-                    tbUrl.Text = $@"?pagetype=webresource&webresourceName={webresourceName}{dataParams}";
+                    tbUrl.Text = $@"{baseUrl}?pagetype=webresource&webresourceName={webresourceName}{dataParams}";
                     break;
             }
         }

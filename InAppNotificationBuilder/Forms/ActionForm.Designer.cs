@@ -250,6 +250,7 @@ namespace Fic.XTB.InAppNotificationBuilder.Forms
             this.cbNavigationTarget.Name = "cbNavigationTarget";
             this.cbNavigationTarget.Size = new System.Drawing.Size(682, 28);
             this.cbNavigationTarget.TabIndex = 16;
+            this.cbNavigationTarget.SelectedIndexChanged += new System.EventHandler(this.cbNavigationTarget_SelectedIndexChanged);
             // 
             // cbCustomPage
             // 

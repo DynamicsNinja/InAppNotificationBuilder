@@ -12,6 +12,7 @@ using Fic.XTB.InAppNotificationBuilder.Model;
 using Fic.XTB.InAppNotificationBuilder.Proxy;
 using McTools.Xrm.Connection;
 using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Rest.Serialization;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
@@ -40,6 +41,8 @@ namespace Fic.XTB.InAppNotificationBuilder
         public DataGridView ActionsGrid;
         private SendTestNotificationForm _testForm;
         private ActionForm _actionForm;
+
+        public string appBaseUrl; 
 
         public InAppNotificationBuilder()
         {
@@ -92,6 +95,8 @@ namespace Fic.XTB.InAppNotificationBuilder
             base.UpdateConnection(newService, detail, actionName, parameter);
 
             if (detail == null) { return; }
+
+            appBaseUrl = $"{detail.WebApplicationUrl}main.aspx";
 
             ChangeUiState(false);
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Fic.XTB.InAppNotificationBuilder</id>
@@ -22,7 +22,9 @@
 - Added buttons for reordering actions
 1.2021.10.3
 - Added HTML webresource links
-- Fixed empty link text issue</releaseNotes>
+- Fixed empty link text validation
+1.2021.10.4
+- Fixed new window action issue.</releaseNotes>
     <copyright>Copyright 2021 Ivan Ficko</copyright>
     <tags>XrmToolBox Plugins InAppNotificationBuilder</tags>
     <dependencies>
