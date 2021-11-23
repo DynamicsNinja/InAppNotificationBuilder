@@ -34,20 +34,24 @@ namespace Fic.XTB.InAppNotificationBuilder
         private Notification _notification;
 
         public List<Entity> Users;
+        public List<Entity> Images;
         public BindingList<NotificationAction> NotificationActions;
 
         public object[] Entities;
 
+        public ComboBox CbCustomIcon;
         public DataGridView ActionsGrid;
         private SendTestNotificationForm _testForm;
         private ActionForm _actionForm;
+        private ImageListForm _imageListForm;
 
-        public string appBaseUrl; 
+        public string appBaseUrl;
 
         public InAppNotificationBuilder()
         {
             InitializeComponent();
 
+            CbCustomIcon = cbCustomIcon;
             _notification = new Notification();
             ActionsGrid = dgvActions;
 
@@ -125,6 +129,7 @@ namespace Fic.XTB.InAppNotificationBuilder
 
             lblCustomIcon.Visible = selectedIcon.Value == 100000005;
             cbCustomIcon.Visible = selectedIcon.Value == 100000005;
+            btnBrowseImages.Visible = selectedIcon.Value == 100000005;
 
             cbCustomIcon.SelectedItem = null;
 
@@ -735,7 +740,10 @@ namespace Fic.XTB.InAppNotificationBuilder
                         fe.AddCondition("webresourcetype", ConditionOperator.Equal, 5);
                         fe.AddCondition("webresourcetype", ConditionOperator.Equal, 11);
 
-                        eventargs.Result = Service.RetrieveMultiple(query);
+                        var imagesCollection = Service.RetrieveMultiple(query);
+
+                        this.Images = imagesCollection.Entities.ToList();
+                        eventargs.Result = imagesCollection;
                     })
                 {
                     PostWorkCallBack = (completedargs) =>
@@ -903,5 +911,40 @@ service.Create(notification);".Trim();
         }
 
         #endregion
+
+        private void btnBrowseImages_Click(object sender, EventArgs e)
+        {
+            btnBrowseImages.Enabled = false;
+
+            if (_imageListForm == null)
+            {
+                WorkAsync(
+                    new WorkAsyncInfo("Loading image dialog...",
+                        (eventargs) =>
+                        {
+                            _imageListForm = new ImageListForm(this);
+                        })
+                    {
+                        PostWorkCallBack = (completedargs) =>
+                        {
+                            if (completedargs.Error != null)
+                            {
+                                MessageBox.Show(completedargs.Error.Message);
+                            }
+                            else
+                            {
+                                _imageListForm.ShowDialog();
+                            }
+
+                            btnBrowseImages.Enabled = true;
+                        }
+                    });
+            }
+            else
+            {
+                _imageListForm.ShowDialog();
+                btnBrowseImages.Enabled = true;
+            }
+        }
     }
 }

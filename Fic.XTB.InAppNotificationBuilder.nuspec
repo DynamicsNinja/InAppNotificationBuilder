@@ -24,7 +24,10 @@
 - Added HTML webresource links
 - Fixed empty link text validation
 1.2021.10.4
-- Fixed new window action issue.</releaseNotes>
+- Fixed new window action issue
+1.2021.11.2
+- Added custom icon picker dialog
+- Fixed minimum height for custom icon</releaseNotes>
     <copyright>Copyright 2021 Ivan Ficko</copyright>
     <tags>XrmToolBox Plugins InAppNotificationBuilder</tags>
     <dependencies>
