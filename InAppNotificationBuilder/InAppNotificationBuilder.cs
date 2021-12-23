@@ -323,6 +323,41 @@ namespace Fic.XTB.InAppNotificationBuilder
             RenderNotifcation();
         }
 
+        private void btnBrowseImages_Click(object sender, EventArgs e)
+        {
+            btnBrowseImages.Enabled = false;
+
+            if (_imageListForm == null)
+            {
+                WorkAsync(
+                    new WorkAsyncInfo("Loading image dialog...",
+                        (eventargs) =>
+                        {
+                            _imageListForm = new ImageListForm(this);
+                        })
+                    {
+                        PostWorkCallBack = (completedargs) =>
+                        {
+                            if (completedargs.Error != null)
+                            {
+                                MessageBox.Show(completedargs.Error.Message);
+                            }
+                            else
+                            {
+                                _imageListForm.ShowDialog();
+                            }
+
+                            btnBrowseImages.Enabled = true;
+                        }
+                    });
+            }
+            else
+            {
+                _imageListForm.ShowDialog();
+                btnBrowseImages.Enabled = true;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -518,7 +553,7 @@ namespace Fic.XTB.InAppNotificationBuilder
                         Orders = { new OrderExpression("fullname", OrderType.Ascending) }
                     };
 
-                    args.Result = Service.RetrieveMultiple(qe);
+                    args.Result = RetrieveAllRecords(Service, qe);
                 },
                 PostWorkCallBack = (args) =>
                 {
@@ -528,9 +563,9 @@ namespace Fic.XTB.InAppNotificationBuilder
                     }
                     else
                     {
-                        if (!(args.Result is EntityCollection result)) { return; }
+                        if (!(args.Result is List<Entity> result)) { return; }
 
-                        Users = result.Entities.ToList();
+                        Users = result;
                     }
                 }
             });
@@ -740,10 +775,10 @@ namespace Fic.XTB.InAppNotificationBuilder
                         fe.AddCondition("webresourcetype", ConditionOperator.Equal, 5);
                         fe.AddCondition("webresourcetype", ConditionOperator.Equal, 11);
 
-                        var imagesCollection = Service.RetrieveMultiple(query);
+                        var imagesList = RetrieveAllRecords(Service, query);
 
-                        this.Images = imagesCollection.Entities.ToList();
-                        eventargs.Result = imagesCollection;
+                        this.Images = imagesList;
+                        eventargs.Result = imagesList;
                     })
                 {
                     PostWorkCallBack = (completedargs) =>
@@ -754,9 +789,9 @@ namespace Fic.XTB.InAppNotificationBuilder
                         }
                         else
                         {
-                            if (!(completedargs.Result is EntityCollection result)) { return; }
+                            if (!(completedargs.Result is List<Entity> result)) { return; }
 
-                            var images = result.Entities.Select(f => new WebresourceProxy(f)).OrderBy(f => f.ToString()).ToArray();
+                            var images = result.Select(f => new WebresourceProxy(f)).OrderBy(f => f.ToString()).ToArray();
 
                             cbCustomIcon.Items.Clear();
                             cbCustomIcon.Items.AddRange(images);
@@ -910,41 +945,33 @@ service.Create(notification);".Trim();
             }
         }
 
-        #endregion
-
-        private void btnBrowseImages_Click(object sender, EventArgs e)
+        public static List<Entity> RetrieveAllRecords(IOrganizationService service, QueryExpression query)
         {
-            btnBrowseImages.Enabled = false;
-
-            if (_imageListForm == null)
+            var pageNumber = 1;
+            var pagingCookie = string.Empty;
+            var result = new List<Entity>();
+            EntityCollection resp;
+            do
             {
-                WorkAsync(
-                    new WorkAsyncInfo("Loading image dialog...",
-                        (eventargs) =>
-                        {
-                            _imageListForm = new ImageListForm(this);
-                        })
-                    {
-                        PostWorkCallBack = (completedargs) =>
-                        {
-                            if (completedargs.Error != null)
-                            {
-                                MessageBox.Show(completedargs.Error.Message);
-                            }
-                            else
-                            {
-                                _imageListForm.ShowDialog();
-                            }
+                if (pageNumber != 1)
+                {
+                    query.PageInfo.PageNumber = pageNumber;
+                    query.PageInfo.PagingCookie = pagingCookie;
+                }
+                resp = service.RetrieveMultiple(query);
+                if (resp.MoreRecords)
+                {
+                    pageNumber++;
+                    pagingCookie = resp.PagingCookie;
+                }
 
-                            btnBrowseImages.Enabled = true;
-                        }
-                    });
+                result.AddRange(resp.Entities);
             }
-            else
-            {
-                _imageListForm.ShowDialog();
-                btnBrowseImages.Enabled = true;
-            }
+            while (resp.MoreRecords);
+
+            return result;
         }
+
+        #endregion
     }
 }

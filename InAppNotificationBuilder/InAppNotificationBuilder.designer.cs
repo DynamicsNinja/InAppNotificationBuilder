@@ -49,6 +49,7 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.gbPreview = new System.Windows.Forms.GroupBox();
             this.wbPreview = new System.Windows.Forms.WebBrowser();
             this.gbData = new System.Windows.Forms.GroupBox();
+            this.btnBrowseImages = new System.Windows.Forms.Button();
             this.tbExpiresIn = new System.Windows.Forms.TextBox();
             this.cbExpiresIn = new System.Windows.Forms.ComboBox();
             this.lblExpiresIn = new System.Windows.Forms.Label();
@@ -75,7 +76,6 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.label2 = new System.Windows.Forms.Label();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnBrowseImages = new System.Windows.Forms.Button();
             this.toolStripMenu.SuspendLayout();
             this.gbPreview.SuspendLayout();
             this.gbData.SuspendLayout();
@@ -266,6 +266,18 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.gbData.TabIndex = 7;
             this.gbData.TabStop = false;
             this.gbData.Text = "Data";
+            // 
+            // btnBrowseImages
+            // 
+            this.btnBrowseImages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBrowseImages.Location = new System.Drawing.Point(644, 503);
+            this.btnBrowseImages.Margin = new System.Windows.Forms.Padding(0);
+            this.btnBrowseImages.Name = "btnBrowseImages";
+            this.btnBrowseImages.Size = new System.Drawing.Size(87, 35);
+            this.btnBrowseImages.TabIndex = 30;
+            this.btnBrowseImages.Text = "...";
+            this.btnBrowseImages.UseVisualStyleBackColor = true;
+            this.btnBrowseImages.Click += new System.EventHandler(this.btnBrowseImages_Click);
             // 
             // tbExpiresIn
             // 
@@ -572,18 +584,6 @@ namespace Fic.XTB.InAppNotificationBuilder
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1480, 796);
             this.tableLayoutPanel1.TabIndex = 7;
-            // 
-            // btnBrowseImages
-            // 
-            this.btnBrowseImages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseImages.Location = new System.Drawing.Point(644, 503);
-            this.btnBrowseImages.Margin = new System.Windows.Forms.Padding(0);
-            this.btnBrowseImages.Name = "btnBrowseImages";
-            this.btnBrowseImages.Size = new System.Drawing.Size(87, 35);
-            this.btnBrowseImages.TabIndex = 30;
-            this.btnBrowseImages.Text = "...";
-            this.btnBrowseImages.UseVisualStyleBackColor = true;
-            this.btnBrowseImages.Click += new System.EventHandler(this.btnBrowseImages_Click);
             // 
             // InAppNotificationBuilder
             // 

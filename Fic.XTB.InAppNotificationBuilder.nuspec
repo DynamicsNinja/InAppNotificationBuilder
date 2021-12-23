@@ -27,7 +27,9 @@
 - Fixed new window action issue
 1.2021.11.2
 - Added custom icon picker dialog
-- Fixed minimum height for custom icon</releaseNotes>
+- Fixed minimum height for custom icon
+1.2021.12.1
+- Fixed issue when fetching more than 5k users</releaseNotes>
     <copyright>Copyright 2021 Ivan Ficko</copyright>
     <tags>XrmToolBox Plugins InAppNotificationBuilder</tags>
     <dependencies>
