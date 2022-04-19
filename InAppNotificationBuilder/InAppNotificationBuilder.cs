@@ -100,7 +100,9 @@ namespace Fic.XTB.InAppNotificationBuilder
 
             if (detail == null) { return; }
 
-            appBaseUrl = $"{detail.WebApplicationUrl}main.aspx";
+            appBaseUrl = detail.OriginalUrl.EndsWith("/")
+                ? $"{detail.OriginalUrl}main.aspx"
+                : $"{detail.OriginalUrl}/main.aspx";
 
             ChangeUiState(false);
 
